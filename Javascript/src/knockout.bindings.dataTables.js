@@ -97,7 +97,7 @@ ko.bindingHandlers['dataTable'] = {
                         });
 
                         // Add the new data back into the data table.
-                        dataTable.fnAddData(unwrappedItems);
+                        dataTable.fnAddData(unwrappedItems, true);
                     });
                 }
 
