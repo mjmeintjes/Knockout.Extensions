@@ -42,7 +42,7 @@ ko.bindingHandlers['dataTable'] = {
         if (binding.rowTemplate && binding.rowTemplate != '') {
             options.fnRowCallback = function (row, data, displayIndex, displayIndexFull) {
                 // Render the row template for this row.
-				ko.renderTemplate(binding.rowTemplate, data, null, row, "replaceChildren");
+                ko.renderTemplate(binding.rowTemplate, data, null, row, "replaceChildren");
                 return row;
             }
         }
@@ -97,7 +97,7 @@ ko.bindingHandlers['dataTable'] = {
                         });
 
                         // Add the new data back into the data table.
-                        dataTable.fnAddData(unwrappedItems);
+                        dataTable.fnAddData(unwrappedItems, true);
                     });
                 }
 
@@ -128,8 +128,8 @@ ko.bindingHandlers['dataTable'] = {
                     // Insert the cell in the current row.
                     destRow.append(newCell);
                     // bind the cell to the observable in the current data row.
-					var accesor = eval("srcData['" + columnName.replace(".", "']['") + "']");
-					ko.applyBindingsToNode(newCell[0], { text: accesor }, srcData);
+                    var accesor = eval("srcData['" + columnName.replace(".", "']['") + "']");
+                    ko.applyBindingsToNode(newCell[0], { text: accesor }, srcData);
                 });
 
                 return destRow[0];
@@ -203,13 +203,13 @@ ko.bindingHandlers['dataTable'] = {
                 destOptions.RecordsToTake = item.value;
             else if (item.name == "sSearch")
                 destOptions.GlobalSearchText = item.value;
-            else if (cog.string.startsWith(item.name, "bSearchable_"))
+            else if (ko.utils.stringStartsWith(item.name, "bSearchable_"))
                 destOptions.Columns[colIndex].IsSearchable = item.value;
-            else if (cog.string.startsWith(item.name, "sSearch_"))
+            else if (ko.utils.stringStartsWith(item.name, "sSearch_"))
                 destOptions.Columns[colIndex].SearchText = item.value;
-            else if (cog.string.startsWith(item.name, "mDataProp_"))
+            else if (ko.utils.stringStartsWith(item.name, "mDataProp_"))
                 destOptions.Columns[colIndex].ColumnName = item.value;
-            else if (cog.string.startsWith(item.name, "iSortCol_")) {
+            else if (ko.utils.stringStartsWith(item.name, "iSortCol_")) {
                 destOptions.Columns[item.value].IsSorted = true;
                 destOptions.Columns[item.value].SortOrder = colIndex;
 
