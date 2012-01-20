@@ -42,7 +42,9 @@ ko.bindingHandlers['dataTable'] = {
         if (binding.rowTemplate && binding.rowTemplate != '') {
             options.fnRowCallback = function (row, data, displayIndex, displayIndexFull) {
                 // Render the row template for this row.
-                ko.renderTemplate(binding.rowTemplate, data, null, row, "replaceChildren");
+                ko.renderTemplate(binding.rowTemplate, 
+                                  new ko.bindingContext(ko.utils.unwrapObservable(data), bindingContext),
+                                  null, row, "replaceChildren");
                 return row;
             }
         }
